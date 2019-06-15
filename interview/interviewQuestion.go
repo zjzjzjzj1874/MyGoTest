@@ -33,6 +33,8 @@ func Defer222() {
 	// 执行到b=1时候开始调用，index:2==>calc("2",0,2)==>									2,0,2,2
 	// 最后执行index:1==>calc("1",1,3)==>													1,1,3,4
 }
+
+// 计算
 func calc(index string, a, b int) int {
 	ret := a + b
 	fmt.Println(index, a, b, ret)
