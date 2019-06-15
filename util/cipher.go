@@ -8,7 +8,7 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"fmt"
-	"golang.org/x/crypto/scrypt"
+	//"golang.org/x/crypto/scrypt"
 	"io"
 	"strings"
 )
@@ -29,14 +29,14 @@ func Md5Encode(data string) string {
  * 前台最好也加密再传过来
  */
 //非对称加密
-func EncryptByScrypt(str, salt string) string {
-	dk, err := scrypt.Key([]byte(str), []byte(salt), 32768, 8, 1, 18)
-	if err != nil {
-		fmt.Println("Scrypt加密 err:+++++++++", err)
-		return ""
-	}
-	return base64.URLEncoding.EncodeToString(dk)
-}
+//func EncryptByScrypt(str, salt string) string {
+//	dk, err := scrypt.Key([]byte(str), []byte(salt), 32768, 8, 1, 18)
+//	if err != nil {
+//		fmt.Println("Scrypt加密 err:+++++++++", err)
+//		return ""
+//	}
+//	return base64.URLEncoding.EncodeToString(dk)
+//}
 
 /*
  * AES加密解密
