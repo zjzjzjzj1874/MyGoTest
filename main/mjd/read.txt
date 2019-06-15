@@ -1,0 +1,3 @@
+what a sadness msg:
+go cannot convert chinese to english.
+加上 几个中文测试
