@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
+	"runtime"
 	"sync"
 	"time"
 )
@@ -84,4 +85,49 @@ func consume(data chan int, done chan bool) {
 		return
 	}
 	done <- true
+}
+
+//最简单的go协程 -- 通过sleep来完成
+func ThreadGoroutine(a time.Duration) {
+	fmt.Println("In ThreadGoroutine()")
+	go longWait()
+	go shortWait()
+	fmt.Println("About to sleep in main()")
+	// sleep works with a Duration in nanoseconds (ns) !
+	time.Sleep(a * 1e9)
+	/*我们让 main() 函数暂停 10 秒从而确定它会在另外两个协程之后结束。
+	如果不这样（如果我们让 main() 函数停止 4 秒），main() 会提前结束，
+	longWait() 则无法完成。如果我们不在 main() 中等待，协程会随着程序的结束而消亡。*/
+	fmt.Println("At the end of main()")
+}
+func longWait() {
+	fmt.Println("Beginning longWait()")
+	time.Sleep(5 * 1e9) // sleep for 5 seconds
+	fmt.Println("End of longWait()")
+}
+
+func shortWait() {
+	fmt.Println("Beginning shortWait()")
+	time.Sleep(2 * 1e9) // sleep for 2 seconds
+	fmt.Println("End of shortWait()")
+}
+
+//go 关键词的测试
+func goRuntineTest() {
+	runtime.GOMAXPROCS(1)
+	wg := sync.WaitGroup{}
+	wg.Add(20)
+	for i := 0; i < 10; i++ {
+		go func() {
+			fmt.Println("i1: ", i)
+			wg.Done()
+		}()
+	}
+	for i := 0; i < 10; i++ {
+		go func(i int) {
+			fmt.Println("i2: ", i)
+			wg.Done()
+		}(i)
+	}
+	wg.Wait()
 }

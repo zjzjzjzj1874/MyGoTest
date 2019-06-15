@@ -1,4 +1,4 @@
-package util
+package arithmetic
 
 import "strings"
 
@@ -65,4 +65,22 @@ func bubbleSort(arr []int, order string) []int {
 		}
 	}
 	return arr
+}
+
+//go实现斐波那契数列
+func Fibonaci(n int) int {
+	if n < 2 {
+		return n
+	}
+	return Fibonaci(n-2) + Fibonaci(n-1)
+}
+
+//递归调用函数求阶乘
+func Factorial(x int) (result int) {
+	if x == 0 {
+		result = 1
+	} else {
+		result = x * Factorial(x-1)
+	}
+	return
 }

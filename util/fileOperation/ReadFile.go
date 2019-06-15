@@ -9,56 +9,10 @@ import (
 	"os"
 )
 
-func produce(p chan<- int) {
-	for i := 0; i < 10; i++ {
-		p <- i
-		fmt.Println("send:", i)
-	}
-}
-func consumer(c <-chan int) {
-	for i := 0; i < 10; i++ {
-		v := <-c
-		fmt.Println("receive:", v)
-	}
-}
-
-//func main() {
-//	ch := make(chan int)
-//	go produce(ch)
-//	go consumer(ch)
-//	time.Sleep(1 * time.Second)
-//}
-
 //检查文件是否存在
-func fileExist(fileName string) bool {
+func FileExist(fileName string) bool {
 	_, err := os.Lstat(fileName)
 	return !os.IsNotExist(err)
-}
-
-//埃克森尔面试题目
-func WriteStringToFile(fileName, content string) (ok, isExist bool, oldContent, msg string) {
-	isExist = fileExist(fileName)
-	if len(content) < 8 {
-		return false, isExist, "", "The length of the content is ought to more than 8."
-	}
-	if isExist {
-		//文件存在，读取后重新写入
-		dataBefore, err := ioutil.ReadFile(fileName)
-		if err != nil {
-			fmt.Println("read file occurred an err: " + err.Error())
-		}
-		if string(dataBefore) == "" {
-			msg = "The content of old file is null."
-		} else {
-			oldContent = string(dataBefore)
-		}
-	}
-	data := []byte(content)
-	err := ioutil.WriteFile(fileName, data, 0644)
-	if err != nil {
-		return false, isExist, "", "write string error,and err == " + err.Error()
-	}
-	return true, isExist, oldContent, msg
 }
 
 //整个文件读取

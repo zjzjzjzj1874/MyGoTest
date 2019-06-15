@@ -1,4 +1,4 @@
-package main
+package fileOperation
 
 import (
 	f "fileManager"
@@ -130,7 +130,7 @@ func appendContent(path, name, content, mode string) {
 	ok := isExist(path + name)
 	if !ok {
 		fmt.Println("The file is not exist.")
-		f.Create(path + name)
+		os.Create(path + name)
 	}
 	fileMode := os.O_CREATE
 	fmt.Println("\r\n mode === ", fileMode)
@@ -144,7 +144,6 @@ func appendContent(path, name, content, mode string) {
 		fmt.Println("\r\n open file err == ", err)
 	}
 	defer f.Close()
-	_, err = f.WriteString("\r\n Shanghai time :" + lib.GetShanghaiTime() + "\n content:" + content)
 	if err != nil {
 		fmt.Println("\r\n write string err == ", err)
 	}

@@ -12,13 +12,13 @@ func main() {
 	wg.Add(20)
 	for i := 0; i < 10; i++ {
 		go func() {
-			fmt.Println("i: ", i)
+			fmt.Println("i1: ", i)
 			wg.Done()
 		}()
 	}
 	for i := 0; i < 10; i++ {
 		go func(i int) {
-			//fmt.Println("i: ", i)
+			fmt.Println("i2: ", i)
 			wg.Done()
 		}(i)
 	}

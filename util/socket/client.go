@@ -1,4 +1,4 @@
-package main
+package socket
 
 import (
 	"log"
@@ -8,8 +8,7 @@ import (
 )
 
 const (
-	message       = "Hello from client."
-	StopCharacter = "\r\n\r\n"
+	message = "Hello from client."
 )
 
 func SocketClient(ip string, port int) {
