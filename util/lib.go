@@ -10,6 +10,9 @@ import (
 	"time"
 )
 
+func main()  {
+
+}
 type Person struct {
 	Name        string `json:"name"`          // json:"name" 表示在json中的key == name;如果没有的话,json中的key = Name
 	Age         int64  `json:"age,omitempty"` // omitempty 忽略空值:如果没有该关键字,key为空的时候也会显示出来;有的话,key为空不会出现该字段的相关信息
