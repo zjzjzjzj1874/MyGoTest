@@ -24,7 +24,3 @@ func TestInterfaceToString(t *testing.T) {
 	fmt.Println(InterfaceToString(1.3))
 	fmt.Println(InterfaceToString("12"))
 }
-
-func TestSortPersonMap(t *testing.T) {
-	SortPersonMap()
-}
