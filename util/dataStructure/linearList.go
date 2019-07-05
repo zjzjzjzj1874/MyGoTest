@@ -122,11 +122,12 @@ func (l *LinearList) Update(index int,ele LinearElem ) int {
 // 扩容规则:总长度小于100的时候,扩容两倍;其他扩容1.5倍
 func (l *LinearList) Extend(i int) *LinearList {
 	maxsize := len(l.Data)
-	if i < one && maxsize < doubleTippingPoint{
+	switch {
+	case i < one && maxsize < doubleTippingPoint:
 		maxsize *= double
-	}else if i < one && maxsize >= doubleTippingPoint {
+	case i < one && maxsize >= doubleTippingPoint:
 		maxsize += (maxsize%two + maxsize)/two
-	}else{
+	default:
 		maxsize += i
 	}
 	extend := make([]LinearElem,maxsize - len(l.Data))

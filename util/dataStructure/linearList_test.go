@@ -117,22 +117,22 @@ func TestLinearList_Update(t *testing.T) {
 }
 
 func TestLinearList_Extend(t *testing.T) {
-	l := InitLinearList(115)
+	l := InitLinearList(5)
 	l.Append(1)
 	l.Append(2)
 	l.Append(3)
 	fmt.Println(l)
-	fmt.Println(l.Extend(0))		// expert maxsize = 173
-	fmt.Println(l.Extend(5))		// expert maxsize = 178
+	fmt.Println(l.Extend(0))		// expert maxsize = 10
+	fmt.Println(l.Extend(5))		// expert maxsize = 15
 }
 
 func TestLinearList_Combine(t *testing.T) {
-	l := InitLinearList(5)
+	l := InitLinearList(3)
 	l.Append(1)
 	l.Append(3)
 	l.Append(5)
 
-	l2 := InitLinearList(5)
+	l2 := InitLinearList(3)
 	l2.Append(2)
 	l2.Append(4)
 	l2.Append(6)
