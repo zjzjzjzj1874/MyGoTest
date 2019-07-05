@@ -6,7 +6,7 @@ import (
 )
 
 func Timer(second time.Duration)  {
-	timer(5)
+	timer(second)
 }
 
 // 简单的定时器实现
