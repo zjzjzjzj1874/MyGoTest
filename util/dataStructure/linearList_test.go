@@ -15,7 +15,6 @@ func TestInitLinearList(t *testing.T) {
 	fmt.Println(l.IndexOutOfRange(0))
 	fmt.Println(l.IndexOutOfRange(2))
 	fmt.Println(l.IndexOutOfRange(10))
-
 }
 
 func TestLinearList_GetElem(t *testing.T) {
@@ -115,4 +114,32 @@ func TestLinearList_Update(t *testing.T) {
 	fmt.Println(l)
 	fmt.Println(l.Update(4,44))
 	fmt.Println(l)
+}
+
+func TestLinearList_Extend(t *testing.T) {
+	l := InitLinearList(115)
+	l.Append(1)
+	l.Append(2)
+	l.Append(3)
+	fmt.Println(l)
+	fmt.Println(l.Extend(0))		// expert maxsize = 173
+	fmt.Println(l.Extend(5))		// expert maxsize = 178
+}
+
+func TestLinearList_Combine(t *testing.T) {
+	l := InitLinearList(5)
+	l.Append(1)
+	l.Append(3)
+	l.Append(5)
+
+	l2 := InitLinearList(5)
+	l2.Append(2)
+	l2.Append(4)
+	l2.Append(6)
+
+	fmt.Println("l1 ==== ",l)
+	fmt.Println("l2 ==== ",l2)
+	l3 := l.Combine(l2)
+	fmt.Println(l3)
+	fmt.Println(l3.Combine(l2))
 }
