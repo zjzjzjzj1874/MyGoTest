@@ -145,7 +145,7 @@ func TestLinearList_Combine(t *testing.T) {
 	fmt.Println(l3.Combine(l2))
 }
 // 为测试用例初始化一个线性表
-func initLinearList() *LinearList {
+func initSequenceList() *SequenceList {
 	l := NewList(10)
 	l.AddLast(2)
 	l.AddLast(1)
@@ -157,17 +157,17 @@ func initLinearList() *LinearList {
 	return l
 }
 func TestLinearList_Has(t *testing.T) {
-	l := initLinearList()
+	l := initSequenceList()
 	fmt.Println(l.Contains(0))
 	fmt.Println(l.Contains(1))
 }
 
 func TestLinearList_SortList(t *testing.T) {
-	l := initLinearList()
+	l := initSequenceList()
 	fmt.Println(l.SortList())
 }
 
 func TestLinearList_Clear(t *testing.T) {
-	l := initLinearList()
+	l := initSequenceList()
 	fmt.Println(l.Clear())
 }

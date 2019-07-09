@@ -10,13 +10,13 @@ import (
 
 // go实现的int类型集合:线程安全的
 type Set struct {
-	s map[int]bool
+	data map[int]bool
 	sync.RWMutex
 }
 
 // 初始化Set
 func NewSet() *Set {
-	return &Set{s: map[int]bool{}}
+	return &Set{data: map[int]bool{}}
 }
 
 // 判断set是否为空
@@ -28,26 +28,26 @@ func (s *Set) IsEmpty() bool {
 func (s *Set) Add(elem int) {
 	s.Lock()
 	defer s.Unlock()
-	s.s[elem] = true
+	s.data[elem] = true
 }
 
 // 移除集合中元素
 func (s *Set) Remove(elem int) {
 	s.Lock()
-	delete(s.s, elem)
+	delete(s.data, elem)
 	s.Unlock()
 }
 
 // 判断元素是否在set中
 func (s *Set) Contains(elem int) bool {
-	return s.s[elem]
+	return s.data[elem]
 }
 
 // 转化为list
 func (s *Set) List() []int {
 	s.RLock()
 	var arr []int
-	for i := range s.s {
+	for i := range s.data {
 		arr = append(arr, i)
 	}
 	s.RUnlock()
@@ -69,7 +69,7 @@ func (s *Set) Len() int {
 // 清空集合
 func (s *Set) Clear() {
 	s.Lock()
-	s.s = nil
+	s.data = nil
 	s.Unlock()
 }
 
@@ -82,8 +82,8 @@ func (s *Set) InterSection(o *Set) *Set {
 		return NewSet()
 	}
 	nS := NewSet()
-	for s1 := range s.s {
-		for s2 := range o.s {
+	for s1 := range s.data {
+		for s2 := range o.data {
 			if s1 == s2 {
 				nS.Add(s1)
 				break
@@ -101,11 +101,11 @@ func (s *Set) Union(o *Set) *Set {
 		return NewSet()
 	}
 	nS := NewSet()
-	for s1 := range s.s {
-		nS.s[s1] = true
+	for s1 := range s.data {
+		nS.data[s1] = true
 	}
-	for s2 := range o.s {
-		nS.s[s2] = true
+	for s2 := range o.data {
+		nS.data[s2] = true
 	}
 	return nS
 }
@@ -135,7 +135,7 @@ func (s *Set) IsSubSet(motherSet *Set) bool {
 	if motherSet.Len() < s.Len(){
 		return false
 	}
-	for v := range s.s{
+	for v := range s.data{
 		if !motherSet.Contains(v){
 			return false
 		}
@@ -143,7 +143,7 @@ func (s *Set) IsSubSet(motherSet *Set) bool {
 	return true
 }
 
-// 计算差集 difference set :就是把set1中属于set2的元素去掉 TODO 空集与其他差集的计算
+// 计算差集 difference set :就是把set1中属于set2的元素去掉
 func (s *Set) DiffSet(s2 *Set) *Set {
 	s.RLock()
 	s.RUnlock()
@@ -151,7 +151,7 @@ func (s *Set) DiffSet(s2 *Set) *Set {
 		return s
 	}
 	ns := NewSet()
-	for v1 := range s.s{
+	for v1 := range s.data{
 		if !s2.Contains(v1){
 			ns.Add(v1)
 		}
@@ -161,7 +161,5 @@ func (s *Set) DiffSet(s2 *Set) *Set {
 
 // 对称差集 symmetric difference set :空集和其他集合的对称差集
 func (s *Set) SymDiffSet(s2 *Set) *Set {
-	n1 := s.DiffSet(s2)
-	n2 := s2.DiffSet(s)
-	return n1.Union(n2)
+	return s.DiffSet(s2).Union(s2.DiffSet(s))
 }

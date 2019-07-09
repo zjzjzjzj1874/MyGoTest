@@ -79,9 +79,9 @@ func TestSet_IsSubSet(t *testing.T) {
 // 差集测试
 func TestSet_DiffSet(t *testing.T) {
 	s := NewSet()
-	s.Add(1)
-	s.Add(2)
-	s.Add(3)
+	//s.Add(1)
+	//s.Add(2)
+	//s.Add(3)
 	s2 := NewSet()
 	s2.Add(3)
 	s2.Add(4)
@@ -94,9 +94,9 @@ func TestSet_DiffSet(t *testing.T) {
 // 对称差集测试
 func TestSet_SymDiffSet(t *testing.T) {
 	s := NewSet()
-	//s.Add(1)
-	//s.Add(2)
-	//s.Add(3)
+	s.Add(1)
+	s.Add(2)
+	s.Add(3)
 	s2 := NewSet()
 	s2.Add(3)
 	s2.Add(4)
