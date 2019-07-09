@@ -1,14 +1,24 @@
 package dataStructure
 
-// TODO 待完成:
-//  1.线性表中存储数据不仅限于int
-
-const(
-	doubleTippingPoint 	= 100
-	double				= 2
+import (
+	"sort"
+	"sync"
 )
 
-const(
+// TODO 待完成:
+//  1.线性表中存储数据不仅限于int
+// TODO 待完善方法:addFirst,addLast,
+//  getFirst,getLast,
+//  removeFirst,removeLast,removeRange(删除某个范围内元素),
+//  toArray(转化为数组,数组长度为线性表长度),
+//  查找元素位置:indexOf,lastIndexOf
+
+const (
+	doubleTippingPoint = 100
+	double             = 2
+)
+
+const (
 	zero = iota
 	one
 	two
@@ -20,15 +30,28 @@ type (
 
 	// 定义一个线性表结构体
 	LinearList struct {
-		Maxsize int          // 最大长度 TODO 是否有必要,可以让其 = len(LinearList.Data) =>更安全;别人可能把Maxsize修改了,但是Data却还是原来的容量
+		Lock    sync.Mutex   // 互斥锁 使用方法: 加锁 = l.Lock.Lock()和解锁 = l.Lock().Unlock()
+		Maxsize int          // 最大长度
 		CurLen  int          // 当前长度
 		Data    []LinearElem // 保存数据(也可以把linearElem换成interface{},更加通用)
 	}
 )
 
+func (l *LinearList) Len() int {
+	return l.CurLen
+}
+
+func (l *LinearList) Less(i, j int) bool {
+	return l.Data[i] < l.Data[j]
+}
+
+func (l *LinearList) Swap(i, j int) {
+	l.Data[i], l.Data[j] = l.Data[j], l.Data[i]
+}
+
 // 初始化一个线性表
-func InitLinearList(maxsize int) *LinearList {
-	if maxsize < one{
+func NewList(maxsize int) *LinearList {
+	if maxsize < one {
 		maxsize = 10
 	}
 	return &LinearList{Maxsize: maxsize, Data: make([]LinearElem, maxsize)}
@@ -41,8 +64,17 @@ func (l *LinearList) IsEmpty() bool {
 
 // 判断线性表是否已满
 func (l *LinearList) IsFull() bool {
-	//return l.Maxsize == l.CurLen
 	return len(l.Data) == l.CurLen
+}
+
+// 判断元素是否在线性表里
+func (l *LinearList) Contains(elem LinearElem) bool {
+	for i := zero; i < l.CurLen; i++ {
+		if elem == l.Data[i] {
+			return true
+		}
+	}
+	return false
 }
 
 // 判断索引是否越界
@@ -52,69 +84,71 @@ func (l *LinearList) IndexOutOfRange(index int) bool {
 }
 
 // 根据index获取对应元素
-func (l *LinearList) GetElem(index int) (LinearElem, bool) {
+func (l *LinearList) Get(index int) (LinearElem, bool) {
 	if l.IndexOutOfRange(index) {
 		return -one, false
 	}
-	return l.Data[index - one], true
+	return l.Data[index-one], true
 }
 
 // 插入元素
 // 1.末尾append一个数据 当前长度++
 // 返回值 -1失败;成功后返回:插入后的线性表长度
-func (l *LinearList) Append(ele LinearElem) int {
+func (l *LinearList) AddLast(ele LinearElem) int {
 	if l.IsFull() {
-		return  -one
+		return -one
 	}
 	l.Data[l.CurLen] = ele
 	l.CurLen++
 	return l.CurLen
 }
+
 // 2.在index位置前插入元素e;
 // 返回值 -1失败;成功后返回:插入后的线性表长度
-func (l *LinearList) Insert(index int, e LinearElem) int {
-	if l.IsFull() || index < one || index > l.CurLen  {
+func (l *LinearList) Add(index int, e LinearElem) int {
+	if l.IsFull() || index < one || index > l.CurLen {
 		return -one
 	}
-	for i := l.CurLen;i > index - one;i--{
-		l.Data[i] = l.Data[i - one]
+	for i := l.CurLen; i > index-one; i-- {
+		l.Data[i] = l.Data[i-one]
 	}
-	l.Data[index - one] = e
-	l.CurLen ++
+	l.Data[index-one] = e
+	l.CurLen++
 	return l.CurLen
 }
 
 // 删除元素
 // 1.删除最后一个元素
 // 返回值 -1失败;成功后返回:删除后的线性表长度
-func (l *LinearList) DelLast() int {
-	if l.IsEmpty(){
+func (l *LinearList) RemoveLast() int {
+	if l.IsEmpty() {
 		return -one
 	}
-	l.Data[l.CurLen - one] = 0
-	l.CurLen --
+	l.Data[l.CurLen-one] = 0
+	l.CurLen--
 	return l.CurLen
 }
+
 // 2.删除指定位置元素
 // 返回值:-1失败  成功后返回:删除后的线性表长度
-func (l *LinearList) Delete(index int) int {
-	if l.IsEmpty() || index > l.CurLen || index < one{
+func (l *LinearList) Remove(index int) int {
+	if l.IsEmpty() || index > l.CurLen || index < one {
 		return -one
 	}
-	for i := index;i < l.CurLen; i++{
+	for i := index; i < l.CurLen; i++ {
 		l.Data[i-one] = l.Data[i]
 	}
 	l.Data[l.CurLen-one] = 0
-	l.CurLen --
+	l.CurLen--
 	return l.CurLen
 }
 
 // 修改替换
-func (l *LinearList) Update(index int,ele LinearElem ) int {
-	if  index > l.CurLen || index < one{
+func (l *LinearList) Set(index int, ele LinearElem) int {
+	if index > l.CurLen || index < one {
 		return -one
 	}
-	l.Data[index - one] = ele
+	l.Data[index-one] = ele
 	return index
 }
 
@@ -126,11 +160,11 @@ func (l *LinearList) Extend(i int) *LinearList {
 	case i < one && maxsize < doubleTippingPoint:
 		maxsize *= double
 	case i < one && maxsize >= doubleTippingPoint:
-		maxsize += (maxsize%two + maxsize)/two
+		maxsize += (maxsize%two + maxsize) / two
 	default:
 		maxsize += i
 	}
-	extend := make([]LinearElem,maxsize - len(l.Data))
+	extend := make([]LinearElem, maxsize-len(l.Data))
 	l.Data = append(l.Data, extend...)
 	l.Maxsize = len(l.Data)
 	return l
@@ -138,11 +172,27 @@ func (l *LinearList) Extend(i int) *LinearList {
 
 // 两个线性表的合并
 func (l *LinearList) Combine(l2 *LinearList) *LinearList {
-	l2Len := make([]LinearElem,len(l2.Data))
+	l2Len := make([]LinearElem, len(l2.Data))
 	l.Data = append(l.Data, l2Len...)
 	l.Maxsize = len(l.Data) + len(l2.Data)
-	for i := zero;i < l2.CurLen;i ++ {
-		l.Append(l2.Data[i])
+	for i := zero; i < l2.CurLen; i++ {
+		l.AddLast(l2.Data[i])
 	}
+	return l
+}
+
+// 线性表排序
+// 从小到大排序 -- 从大到小排序:就修改Less方法
+func (l *LinearList) SortList() *LinearList {
+	sort.Stable(l)
+	return l
+}
+
+// 清空线性表
+func (l *LinearList) Clear() *LinearList {
+	for i := zero; i < l.CurLen; i++ {
+		l.Data[i] = zero
+	}
+	l.CurLen = zero
 	return l
 }

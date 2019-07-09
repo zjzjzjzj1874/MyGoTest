@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+
 	for i := 0;i < 10000;i ++ {
 		go appendValueNoMutex(i)	// 不加锁会丢失
 		//go appendValueWithMutex(i)	// 加锁不会丢失
