@@ -57,6 +57,25 @@ func NewList(maxsize int) *SequenceList {
 	return &SequenceList{Maxsize: maxsize, Data: make([]SequenceElem, maxsize)}
 }
 
+// 线性表转化为数组
+func (l *SequenceList) ToArray() []int {
+	var arr []int
+	for i:=0;i<l.CurLen;i++{
+		arr = append(arr, int(l.Data[i]))
+	}
+	return arr
+}
+// 线性表转化为有序数组
+func (l *SequenceList) ToSortArray() []int {
+	var arr []int
+	for i:=0;i<l.CurLen;i++{
+		arr = append(arr, int(l.Data[i]))
+	}
+	sort.Ints(arr)
+	return arr
+}
+
+
 // 判断线性表是否为空
 func (l *SequenceList) IsEmpty() bool {
 	return zero == l.CurLen

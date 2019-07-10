@@ -149,6 +149,7 @@ func initSequenceList() *SequenceList {
 	l := NewList(10)
 	l.AddLast(2)
 	l.AddLast(1)
+	l.AddLast(2)
 	l.AddLast(4)
 	l.AddLast(3)
 	l.AddLast(6)
@@ -170,4 +171,10 @@ func TestLinearList_SortList(t *testing.T) {
 func TestLinearList_Clear(t *testing.T) {
 	l := initSequenceList()
 	fmt.Println(l.Clear())
+}
+
+func TestSequenceList_ToArray(t *testing.T) {
+	l := initSequenceList()
+	fmt.Println(l.ToArray())
+	fmt.Println(l.ToSortArray())
 }
