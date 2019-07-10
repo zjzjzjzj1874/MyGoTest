@@ -72,8 +72,8 @@ func TestSet_IsSubSet(t *testing.T) {
 	s2.Add(2)
 	s2.Add(3)
 	s2.Add(4)
+	fmt.Println(s.List())
 	fmt.Println(s.SortList())
-	fmt.Println(s2.SortList())
 	fmt.Println(s.IsSubSet(s2))
 }
 // 差集测试
