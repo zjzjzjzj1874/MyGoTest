@@ -1,11 +1,15 @@
 package arithmetic
 
-import "strings"
+import (
+	"fmt"
+	"sort"
+)
 
 func GetIndexByDichotomy(arr []int, target int) int {
 	return getIndexByDichotomy(arr, target)
 }
 
+// 适用范围:对于有序数组
 // 二分法查找某个数 -- 排序数组
 func getIndexByDichotomy(arr []int, aim int) (aimIndex int) {
 	// start和end最大最小的角标
@@ -34,38 +38,10 @@ func selectionProblem(k int, arr []int) []int {
 	if k >= len(arr) {
 		return arr
 	}
-	//arr = bubbleSort(arr,"desc")
-	arr = bubbleSort(arr, "asc")
+	arr = BubbleSort(arr)
 	return arr[:k]
 }
 
-// 冒泡排序
-func BubbleSort(arr []int, order string) []int {
-	return bubbleSort(arr, order)
-}
-
-// 冒泡排序
-// asc从小到大,DESC从大到小
-func bubbleSort(arr []int, order string) []int {
-	if strings.ToUpper(order) != "DESC" {
-		order = "ASC"
-	}
-	for i := 0; i < len(arr); i++ {
-		for j := i + 1; j < len(arr); j++ {
-			if order == "ASC" {
-				if arr[i] > arr[j] {
-					arr[i], arr[j] = arr[j], arr[i]
-				}
-			} else {
-				if arr[i] < arr[j] {
-					arr[i], arr[j] = arr[j], arr[i]
-				}
-			}
-
-		}
-	}
-	return arr
-}
 
 //go实现斐波那契数列
 func Fibonaci(n int) int {
@@ -84,3 +60,8 @@ func Factorial(x int) (result int) {
 	}
 	return
 }
+
+// 两数之和
+//func SumOfTwoNumber(nums []int,target int) []int {
+//
+//}

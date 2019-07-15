@@ -15,12 +15,6 @@ func TestGetIndexByDichotomy(t *testing.T) {
 	fmt.Println("length === ", len(arr))
 }
 
-// 冒泡排序测试
-func TestBubbleSort(t *testing.T) {
-	arr := []int{754, 1234, 1, 2, 55, 57, 47, 3, 30, 41, 44, 2432, 2654, 50, 52, 32, 4, 5, 23, 26, 13, 14, 15, 16, 20, 29, 33, 36, 38, 40, 48, 58, 60, 61, 28, 6, 10, 65, 234, 2986}
-	fmt.Println(BubbleSort(arr, ""))
-}
-
 // 选择问题测试
 func TestSelectionProblem(t *testing.T) {
 	arr := []int{754, 1234, 1, 2, 55, 57, 47, 3, 30, 41, 44, 2432, 2654, 50, 52, 32, 4, 5, 23, 26, 13, 14, 15, 16, 20, 29, 33, 36, 38, 40, 48, 58, 60, 61, 28, 6, 10, 65, 234, 2986}
@@ -33,6 +27,6 @@ func TestFactorial(t *testing.T) {
 	for i = 0; i < 10; i++ {
 		fmt.Println("this i == ", Fibonaci(i))
 	}
-
 	fmt.Println(Fibonaci(10))
 }
+
