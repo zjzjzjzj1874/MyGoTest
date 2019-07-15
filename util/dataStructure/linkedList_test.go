@@ -107,6 +107,7 @@ func TestLinkedList_Set(t *testing.T) {
 	l := initLinkedList()
 	fmt.Println(l.ToArray())
 	fmt.Println(l.Set(7,3))
+	fmt.Println(l.Set(3,3))
 	fmt.Println(l.ToArray())
 }
 
@@ -119,13 +120,13 @@ func TestLinkedList_GetFirst(t *testing.T) {
 
 func TestLinkedList_GetLast(t *testing.T) {
 	l := initLinkedList()
-	l.Clear()
+	//l.Clear()
 	fmt.Println(l.ToArray())
 	fmt.Println(l.GetLast())
 }
 func TestLinkedList_Get(t *testing.T) {
 	l := initLinkedList()
-	l.Clear()
+	//l.Clear()
 	fmt.Println(l.ToArray())
 	fmt.Println(l.Get(0))
 	fmt.Println(l.Get(3))
