@@ -64,7 +64,8 @@ func InterfaceToString(i interface{}) string {
 	case string:
 		return i.(string)
 	default:
-		return "未知类型"
+		str,_ := json.Marshal(i)
+		return string(str)
 	}
 }
 
