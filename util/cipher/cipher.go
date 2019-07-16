@@ -13,14 +13,48 @@ import (
 	"strings"
 )
 
-//md5加密
+// md5加密
 func Md5Encode(data string) string {
-
 	raw := []byte(data)
 	md5Ctx := md5.New()
 	md5Ctx.Write(raw)
 	cipherStr := md5Ctx.Sum(nil)
 	return hex.EncodeToString(cipherStr)
+}
+
+
+/*
+ * AES加密解密
+ */
+var commonIV = []byte{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f}
+// 创建加密算法
+func createAES() cipher.Block {
+	// AES密匙：也可以将这个密匙当做盐存到数据库里面
+	var privateKey = "thisFunctionIsMadeByZJZJ" //16个字符
+	c, err := aes.NewCipher([]byte(privateKey))
+	if err != nil {
+		fmt.Printf("Error: NewCipher(%d bytes) = %s", len(privateKey), err)
+		return nil
+	}
+	return c
+}
+// 使用AES加密
+func EncryptWithAES(str string) string {
+	plaintext := []byte(str)
+	c := createAES()
+	cfb := cipher.NewCFBEncrypter(c, commonIV)
+	cipherText := make([]byte, len(plaintext))
+	cfb.XORKeyStream(cipherText, plaintext)
+	return fmt.Sprintf("%x", cipherText)
+}
+// 使用AES解密
+func DecodeWithAES(str string) string {
+	cipherText, _ := hex.DecodeString(str)
+	c := createAES()
+	cfbDec := cipher.NewCFBDecrypter(c, commonIV)
+	plaintextCopy := make([]byte, len(cipherText))
+	cfbDec.XORKeyStream(plaintextCopy, cipherText)
+	return string(plaintextCopy)
 }
 
 /*
@@ -37,45 +71,6 @@ func Md5Encode(data string) string {
 //	}
 //	return base64.URLEncoding.EncodeToString(dk)
 //}
-
-/*
- * AES加密解密
- */
-//创建加密算法
-func createAES() cipher.Block {
-	//AES密匙
-	//var key_text = "zhouzhoujianjianzhouzhoujianjian" //32个字符
-	//var key_text = "zhouzhouzhoujianjianjian" //24个字符
-	var key_text = "zhoujianjianzhou" //16个字符
-	c, err := aes.NewCipher([]byte(key_text))
-	if err != nil {
-		fmt.Printf("Error: NewCipher(%d bytes) = %s", len(key_text), err)
-		return nil
-	}
-	return c
-}
-
-//使用AES加密
-func EncryptWithAES(str string) string {
-	plaintext := []byte(str)
-	c := createAES()
-	var commonIV = []byte{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f}
-	cfb := cipher.NewCFBEncrypter(c, commonIV)
-	cipherText := make([]byte, len(plaintext))
-	cfb.XORKeyStream(cipherText, plaintext)
-	return fmt.Sprintf("%x", cipherText)
-}
-
-//使用AES解密
-func DecodeWithAES(str string) string {
-	cipherText, _ := hex.DecodeString(str)
-	c := createAES()
-	var commonIV = []byte{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f}
-	cfbDec := cipher.NewCFBDecrypter(c, commonIV)
-	plaintextCopy := make([]byte, len(cipherText))
-	cfbDec.XORKeyStream(plaintextCopy, cipherText)
-	return string(plaintextCopy)
-}
 
 /**
  * 获取一个Guid值
@@ -106,22 +101,15 @@ const (
 	hashFunctionHeader = "zh.ouj.ian"
 	hashFunctionFooter = "09.O25.O20.78"
 )
-
 var coder = base64.NewEncoding(base64Table)
-
-/**
- * base64加密
- */
+// 加密
 func Base64Encode(str string) string {
-	var src []byte = []byte(hashFunctionHeader + str + hashFunctionFooter)
+	var src = []byte(hashFunctionHeader + str + hashFunctionFooter)
 	return string([]byte(coder.EncodeToString(src)))
 }
-
-/**
- * base64解密
- */
+// 解密
 func Base64Decode(str string) (string, error) {
-	var src []byte = []byte(str)
+	var src = []byte(str)
 	by, err := coder.DecodeString(string(src))
 	return strings.Replace(strings.Replace(string(by), hashFunctionHeader, "", -1), hashFunctionFooter, "", -1), err
 }
