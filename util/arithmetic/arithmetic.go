@@ -1,9 +1,5 @@
 package arithmetic
 
-import (
-	"fmt"
-	"sort"
-)
 
 func GetIndexByDichotomy(arr []int, target int) int {
 	return getIndexByDichotomy(arr, target)
