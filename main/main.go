@@ -3,17 +3,18 @@ package main
 import (
 	"fmt"
 	"math/big"
+	"strconv"
 	"sync"
 )
 
 func main() {
 
-	a1 := ToBigFloat("100.234aj123")
-	fmt.Println(a1)
-	a2 := big.NewFloat(-100)
 
-
-	fmt.Printf("sum ===  %s\n", a1.Add(a1,a2).String())
+	fmt.Println(ToBigFloat("12.df2354541bhj"))
+	fmt.Println(BigFloatToString(big.NewFloat(10.241)))
+	fmt.Println(BigFloatToString(big.NewFloat(10.241254)))
+	fmt.Println(BigFloatToString(big.NewFloat(10.2419254)))
+	fmt.Println(BigFloatToString(big.NewFloat(10.24)))
 	//fmt.Printf("a2 = %s\n", a2.String())
 
 	//for i := 0;i < 10000;i ++ {
@@ -27,8 +28,17 @@ func main() {
 	//}
 }
 func ToBigFloat(str string) *big.Float {
-	f, _, _ := big.ParseFloat(str, 10, 256, big.ToNearestEven)
+	f, _, _ := big.ParseFloat(str, 10, 12, big.ToNearestEven)
 	return f
+}
+
+// big.float转string(保留三位小数)
+func BigFloatToString(b *big.Float) string {
+	return b.Text('f',3)
+}
+
+func FloatToString(f float64) string {
+	return strconv.FormatFloat(f,'f',-1,64)
 }
 
 var s []int
