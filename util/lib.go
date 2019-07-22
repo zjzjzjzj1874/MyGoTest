@@ -1,73 +1,10 @@
+// 简单工具类
 package util
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
-	"math/rand"
-	"strconv"
-	"strings"
-	"time"
 )
-
-func main()  {
-
-}
-type Person struct {
-	Name        string `json:"name"`          // json:"name" 表示在json中的key == name;如果没有的话,json中的key = Name
-	Age         int64  `json:"age,omitempty"` // omitempty 忽略空值:如果没有该关键字,key为空的时候也会显示出来;有的话,key为空不会出现该字段的相关信息
-	Tel         string `json:"tel,omitempty"`
-	Pwd1        string `json:"-"`       // json:"-" 表示忽略这个字段;(对于密码这种字段起到保护的作用,不输出)
-	Pwd2        string `json:"-,"`      // json:"-," 表示不会忽略这个字段;并且key显示为 "-"
-	Int64String int64  `json:",string"` // json:",string" 将该类型转化为string;
-	// Field is ignored by this package.
-}
-
-// 生成传入长度的随机字符串(可包括数字,大小写字母)
-func GetRandomString(length int, typeString string) string {
-	var num = "0123456789"
-	var lower = "abcdefghijklmnopqrstuvwxyz"
-	var upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	b := bytes.Buffer{}
-	if strings.Contains(typeString, "0") {
-		b.WriteString(num)
-	}
-	if strings.Contains(typeString, "a") {
-		b.WriteString(lower)
-	}
-	if strings.Contains(typeString, "A") {
-		b.WriteString(upper)
-	}
-	var tempStr = b.String()
-	if len(b.String()) == 0 {
-		return ""
-	}
-	rand.Seed(time.Now().UnixNano())
-	b = bytes.Buffer{}
-	for i := 0; i < length; i++ {
-		b.WriteByte(tempStr[rand.Intn(len(tempStr))])
-	}
-	return b.String()
-}
-
-//将可能是int\int32\int64\float64\string类型的interface{}转换成string，可继续完善类型
-func InterfaceToString(i interface{}) string {
-	switch i.(type) {
-	case int:
-		return strconv.Itoa(i.(int))
-	case int32:
-		return strconv.Itoa(int(i.(int32)))
-	case int64:
-		return strconv.FormatInt(i.(int64), 10)
-	case float64:
-		return strconv.FormatFloat(i.(float64), 'f', -1, 64)
-	case string:
-		return i.(string)
-	default:
-		str,_ := json.Marshal(i)
-		return string(str)
-	}
-}
 
 //string数组去重,int数组也同理
 func RemoveRepeatedElement(arr []string) (newArr []string) {
