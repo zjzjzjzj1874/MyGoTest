@@ -12,7 +12,7 @@ func TestErrorLog(t *testing.T) {
 
 func TestInfoLog(t *testing.T) {
 	//InfoLog("我","hello world")
-	//fmt.Println(Config.LogSuffix)
+	fmt.Println(Config.LogSuffix)
 
 
 	a := make(map[int]interface{})
