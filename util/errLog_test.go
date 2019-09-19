@@ -14,10 +14,7 @@ func TestInfoLog(t *testing.T) {
 	//InfoLog("我","hello world")
 	fmt.Println(Config.LogSuffix)
 
-
 	a := make(map[int]interface{})
-
-
 	a[3] = [2]int{}
 	a[3] = 45
 }
