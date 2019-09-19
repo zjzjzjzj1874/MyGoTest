@@ -9,6 +9,7 @@ import (
 
 func main() {
 
+	
 
 	fmt.Println(ToBigFloat("12.df2354541bhj"))
 	fmt.Println(BigFloatToString(big.NewFloat(10.241)))
