@@ -43,8 +43,8 @@ func Send(to,subject,content string)  {
         `
 	err := SendToMail(User, Password, Host, to, subject, body, "html")
 	if err != nil {
-		ErrorLog("Failed:send email to",to,"subject = ",subject,";content = ",content,"error = ",err)
+		//ErrorLog("Failed:send email to",to,"subject = ",subject,";content = ",content,"error = ",err)
 	} else {
-		InfoLog("Success:send email to",to,"subject = ",subject,";content = ",content)
+		//InfoLog("Success:send email to",to,"subject = ",subject,";content = ",content)
 	}
 }
