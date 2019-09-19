@@ -21,7 +21,7 @@ func IsChineseChar(str string) bool {
 	return false
 }
 
-// 生成传入长度的随机字符串(可包括数字,大小写字母)
+// 生成传入长度的随机字符串(可包括数字,大小写字母) 0 a A 表示不同的类型
 func GetRandomString(length int, typeString string) string {
 	var num = "0123456789"
 	var lower = "abcdefghijklmnopqrstuvwxyz"
@@ -48,7 +48,7 @@ func GetRandomString(length int, typeString string) string {
 	return b.String()
 }
 
-//将可能是int\int32\int64\float64\string类型的interface{}转换成string，可继续完善类型
+//将可能是int\int32\int64\float64\string类型的interface{}转换成string，可继续完善类型,还有err之类的
 func InterfaceToString(i interface{}) string {
 	switch i.(type) {
 	case int:
