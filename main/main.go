@@ -8,14 +8,34 @@ import (
 )
 
 func main() {
+	var (
+		firstName, lastName string
+		//i                      int
+		//f                      float32
+		//input                  = "56.12 / 5212 / Go"
+		//format                 = "%f / %d / %s"
+	)
+	//fmt.Println("Please enter your full name: ")
+	//fmt.Scanln(&firstName, &lastName)
+	//fmt.Printf("Hi %s %s!\n", firstName, lastName) // Hi Chris Naegels
+	////fmt.Sscanf(input, format, &f, &i, &s)
+	//fmt.Scan(&firstName, &lastName)
+	//fmt.Println("这是啥...", firstName, lastName)
 
-	
+	for {
+		fmt.Println("请输入两个参数,用空格号隔开: ")
+		fmt.Scanln(&firstName, &lastName)
+		fmt.Printf("input == %v,%v \n", firstName, lastName)
+	}
+	//fmt.Sscanf(firstName, lastName,  test1)
+	//fmt.Println("From the string we read: ", firstName, lastName, test1)
+	//fmt.Println("From the string we read: ", f, i, s)
 
-	fmt.Println(ToBigFloat("12.df2354541bhj"))
-	fmt.Println(BigFloatToString(big.NewFloat(10.241)))
-	fmt.Println(BigFloatToString(big.NewFloat(10.241254)))
-	fmt.Println(BigFloatToString(big.NewFloat(10.2419254)))
-	fmt.Println(BigFloatToString(big.NewFloat(10.24)))
+	//fmt.Println(ToBigFloat("12.df2354541bhj"))
+	//fmt.Println(BigFloatToString(big.NewFloat(10.241)))
+	//fmt.Println(BigFloatToString(big.NewFloat(10.241254)))
+	//fmt.Println(BigFloatToString(big.NewFloat(10.2419254)))
+	//fmt.Println(BigFloatToString(big.NewFloat(10.24)))
 	//fmt.Printf("a2 = %s\n", a2.String())
 
 	//for i := 0;i < 10000;i ++ {
@@ -35,26 +55,23 @@ func ToBigFloat(str string) *big.Float {
 
 // big.float转string(保留三位小数)
 func BigFloatToString(b *big.Float) string {
-	return b.Text('f',3)
+	return b.Text('f', 3)
 }
 
 func FloatToString(f float64) string {
-	return strconv.FormatFloat(f,'f',-1,64)
+	return strconv.FormatFloat(f, 'f', -1, 64)
 }
 
 var s []int
 var lock sync.Mutex
 
 // 不加锁
-func appendValueNoMutex(i int)  {
+func appendValueNoMutex(i int) {
 	s = append(s, i)
 }
 
-func appendValueWithMutex(i int)  {
+func appendValueWithMutex(i int) {
 	lock.Lock()
 	s = append(s, i)
 	lock.Unlock()
 }
-
-
-
