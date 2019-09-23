@@ -1,6 +1,9 @@
 package string
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 //测试Reverse函数是否生效
 func TestReverse(t *testing.T) {
@@ -16,4 +19,9 @@ func TestReverse(t *testing.T) {
 			t.Errorf("Reverse(%q) == %q,want == %q", c.s, got, c.want)
 		}
 	}
+}
+func TestReverse2(t *testing.T) {
+	fmt.Println(reverse1("hello"))
+	fmt.Println(reverse2("hello"))
+	fmt.Println(Reverse("hello"))
 }

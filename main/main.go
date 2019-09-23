@@ -5,11 +5,17 @@ import (
 	"math/big"
 	"strconv"
 	"sync"
+	"time"
 )
 
 func main() {
 
-	
+	for i := 1; i < 11; i++ {
+		for j := 1; j <= i; j++ {
+			fmt.Printf("%c%c", 219, 219)
+		}
+		fmt.Println()
+	}
 
 	fmt.Println(ToBigFloat("12.df2354541bhj"))
 	fmt.Println(BigFloatToString(big.NewFloat(10.241)))
@@ -56,5 +62,13 @@ func appendValueWithMutex(i int)  {
 	lock.Unlock()
 }
 
+// 打招呼
+func greet()  {
+	now := time.Now()
+	zeroOfToday := time.Date(now.Year(),now.Month(),now.Day(),0,0,0,0,now.Location())
+	if now.Before(zeroOfToday.Add(15*time.Hour)){
+
+	}
+}
 
 
