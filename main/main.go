@@ -8,26 +8,25 @@ import (
 	"time"
 )
 
-func main() {
-	var (
-		firstName, lastName string
-		//i                      int
-		//f                      float32
-		//input                  = "56.12 / 5212 / Go"
-		//format                 = "%f / %d / %s"
-	)
-	//fmt.Println("Please enter your full name: ")
-	//fmt.Scanln(&firstName, &lastName)
-	//fmt.Printf("Hi %s %s!\n", firstName, lastName) // Hi Chris Naegels
-	////fmt.Sscanf(input, format, &f, &i, &s)
-	//fmt.Scan(&firstName, &lastName)
-	//fmt.Println("这是啥...", firstName, lastName)
+func errTest() error {
+	return nil
+}
 
-	for {
-		fmt.Println("请输入两个参数,用空格号隔开: ")
-		fmt.Scanln(&firstName, &lastName)
-		fmt.Printf("input == %v,%v \n", firstName, lastName)
-	}
+func main() {
+
+	s := ""
+	fmt.Println(s)
+	fmt.Println(&s)
+
+	err := errTest()
+	fmt.Println(err)
+	fmt.Println(&err)
+
+	//for {
+	//	fmt.Println("请输入两个参数,用空格号隔开: ")
+	//	fmt.Scanln(&firstName, &lastName)
+	//	fmt.Printf("input == %v,%v \n", firstName, lastName)
+	//}
 	//fmt.Sscanf(firstName, lastName,  test1)
 	//fmt.Println("From the string we read: ", firstName, lastName, test1)
 	//fmt.Println("From the string we read: ", f, i, s)
@@ -76,17 +75,12 @@ func appendValueWithMutex(i int) {
 	s = append(s, i)
 	lock.Unlock()
 }
-<<<<<<< HEAD
 
 // 打招呼
-func greet()  {
+func greet() {
 	now := time.Now()
-	zeroOfToday := time.Date(now.Year(),now.Month(),now.Day(),0,0,0,0,now.Location())
-	if now.Before(zeroOfToday.Add(15*time.Hour)){
+	zeroOfToday := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
+	if now.Before(zeroOfToday.Add(15 * time.Hour)) {
 
 	}
 }
-
-
-=======
->>>>>>> 323fa616753fc71816f59ba09e5523e28205a9dc
