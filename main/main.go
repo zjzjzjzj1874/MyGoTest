@@ -8,19 +8,66 @@ import (
 	"time"
 )
 
-func errTest() error {
+// 下面两个函数是有区别的
+func errTest(arr [3]int) error {
 	return nil
+}
+func errTest1(arr []int) error {
+	return nil
+}
+func add(a []int, b int, c int) (d []int) {
+	arr1 := new([]int)
+
+	*arr1 = append(*arr1, a[:b]...)
+
+	*arr1 = append(*arr1, c)
+
+	*arr1 = append(*arr1, a[b:]...)
+
+	fmt.Println(a)
+	fmt.Println(*arr1)
+	return a
+}
+
+func add1(a []int, b int, c int) (d []int) {
+	var abcd []int
+
+	abcd = append(abcd, a[:b]...)
+
+	abcd = append(abcd, c)
+
+	abcd = append(abcd, a[b:]...)
+
+	fmt.Println(abcd)
+	fmt.Println(a)
+	return a
+}
+
+func add2(a []int, b int, c int) (d []int) {
+
+	fmt.Println("before append:a == >", a)
+
+	abcd := append(a[:b], c)
+
+	fmt.Println("after append:a == >", a)
+
+	fmt.Println("after append:abcd == >", abcd)
+	return a
 }
 
 func main() {
+	abc := []int{1, 2, 3, 4, 5, 6}
+	var x int = 3
+	var i int = 100
+	add2(abc, x, i)
 
-	s := ""
-	fmt.Println(s)
-	fmt.Println(&s)
-
-	err := errTest()
-	fmt.Println(err)
-	fmt.Println(&err)
+	//s := ""
+	//fmt.Println(s)
+	//fmt.Println(&s)
+	//
+	//err := errTest()
+	//fmt.Println(err)
+	//fmt.Println(&err)
 
 	//for {
 	//	fmt.Println("请输入两个参数,用空格号隔开: ")
