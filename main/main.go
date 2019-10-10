@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/big"
+	"reflect"
 	"strconv"
 	"sync"
 	"time"
@@ -55,11 +56,29 @@ func add2(a []int, b int, c int) (d []int) {
 	return a
 }
 
+// 指针类型
+func pti() {
+	var j int = 5
+	fmt.Println(reflect.TypeOf(j))
+	fmt.Println(reflect.TypeOf(&j))
+	fmt.Println(j)
+	fmt.Println(&j)
+	i := new(int)
+	fmt.Println(reflect.TypeOf(i))
+	fmt.Println(reflect.TypeOf(*i))
+	fmt.Println(reflect.TypeOf(&i))
+	fmt.Println(i)
+	fmt.Println(*i)
+	fmt.Println(&i)
+}
+
 func main() {
-	abc := []int{1, 2, 3, 4, 5, 6}
-	var x int = 3
-	var i int = 100
-	add2(abc, x, i)
+	pti()
+
+	//abc := []int{1, 2, 3, 4, 5, 6}
+	//var x int = 3
+	//var i int = 100
+	//add2(abc, x, i)
 
 	//s := ""
 	//fmt.Println(s)
