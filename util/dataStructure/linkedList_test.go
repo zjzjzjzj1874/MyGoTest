@@ -1,6 +1,7 @@
 package dataStructure
 
 import (
+	"container/list"
 	"fmt"
 	"testing"
 )
@@ -15,6 +16,7 @@ func initLinkedList() *linkedList {
 	l.AddLast(6)
 	return l
 }
+
 // 验证是否为空
 func TestLinkedList_IsEmpty(t *testing.T) {
 	l := NewLinkedList()
@@ -44,7 +46,7 @@ func TestLinkedList_Add(t *testing.T) {
 	l.AddLast(3)
 	l.AddLast(5)
 	l.Traverse()
-	l.Add(0,4)
+	l.Add(0, 4)
 	fmt.Println("after ===== ")
 	l.Traverse()
 }
@@ -52,7 +54,7 @@ func TestLinkedList_Add(t *testing.T) {
 func TestLinkedList_Remove(t *testing.T) {
 	l := initLinkedList()
 	l.Traverse()
-	fmt.Println("链表长度 == ",l.Len())
+	fmt.Println("链表长度 == ", l.Len())
 	fmt.Println(l.Remove(3))
 	fmt.Println("after ===== ")
 	l.Traverse()
@@ -92,7 +94,7 @@ func TestLinkedList_Contains(t *testing.T) {
 func TestLinkedList_SetFirst(t *testing.T) {
 	l := initLinkedList()
 	l.Clear()
-	fmt.Println("清空之后的链表 === ",l.ToArray())
+	fmt.Println("清空之后的链表 === ", l.ToArray())
 	l.SetFirst(100)
 	fmt.Println(l.ToArray())
 }
@@ -106,8 +108,8 @@ func TestLinkedList_SetLast(t *testing.T) {
 func TestLinkedList_Set(t *testing.T) {
 	l := initLinkedList()
 	fmt.Println(l.ToArray())
-	fmt.Println(l.Set(7,3))
-	fmt.Println(l.Set(3,3))
+	fmt.Println(l.Set(7, 3))
+	fmt.Println(l.Set(3, 3))
 	fmt.Println(l.ToArray())
 }
 
@@ -132,4 +134,19 @@ func TestLinkedList_Get(t *testing.T) {
 	fmt.Println(l.Get(3))
 	fmt.Println(l.Get(5))
 	fmt.Println(l.Get(7))
+}
+
+// go语言自带list实现
+func TestGOList(t *testing.T) {
+	// Create a new list and put some numbers in it.
+	l := list.New()
+	e4 := l.PushBack(4)
+	e1 := l.PushFront(1)
+	l.InsertBefore(3, e4)
+	l.InsertAfter(2, e1)
+
+	// Iterate through list and print its contents.
+	for e := l.Front(); e != nil; e = e.Next() {
+		fmt.Println(e.Value)
+	}
 }

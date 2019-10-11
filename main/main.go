@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/big"
+	"os/user"
 	"reflect"
 	"strconv"
 	"sync"
@@ -72,8 +73,56 @@ func pti() {
 	fmt.Println(&i)
 }
 
+//var ARGS string
+//
+//func main() {
+//
+//	var uptime *bool = new(bool)
+//	flag.BoolVar(uptime,"u", false, "print system uptime")
+//	flag.Parse()
+//
+//	ARGS = strings.Join(flag.Args(), " ")
+//	if len(os.Args) < 2 {
+//		flag.Usage()
+//		os.Exit(1)
+//	}
+//
+//	if *uptime {
+//		fmt.Println("12 days")
+//	}
+//}
+
 func main() {
-	pti()
+
+	//l := list.New()
+	//l.PushFront(1)
+	//l.PushFront(2)
+	//l.PushFront(3)
+	//l.PushFront(4)
+	//l.PushFront(4)
+	////l.PushFront(5)
+	//
+	//fmt.Println(l.Len())
+	//for e := l.Front(); e != nil; e = e.Next() {
+	//	if i, ok := e.Value.(int); ok {
+	//		fmt.Println(e.Value,";i = ",i)
+	//	}
+	//}
+	//fmt.Println()
+
+	u, err := user.Current()
+	if err != nil {
+		fmt.Printf("Current: %v (got %#v) \n", err, u)
+	}
+	if u.HomeDir == "" {
+		fmt.Printf("didn't get a HomeDir")
+	}
+	fmt.Println(u.HomeDir)
+	if u.Username == "" {
+		fmt.Printf("didn't get a username")
+	}
+	fmt.Println(u.Username)
+	//pti()
 
 	//abc := []int{1, 2, 3, 4, 5, 6}
 	//var x int = 3
