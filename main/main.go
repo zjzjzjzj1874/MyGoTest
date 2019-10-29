@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 	"math/big"
-	"os/user"
 	"reflect"
 	"strconv"
 	"sync"
 	"time"
+	"unicode/utf8"
 )
 
 // 下面两个函数是有区别的
@@ -94,6 +94,11 @@ func pti() {
 
 func main() {
 
+	// ASCII 字符串长度使用 len() 函数。
+	// Unicode 字符串长度使用 utf8.RuneCountInString() 函数。
+	fmt.Println(utf8.RuneCountInString("我是一个石头,abc"))
+
+	//fmt.Println(time.Now().AddDate(0, 0, 1).Unix())
 	//l := list.New()
 	//l.PushFront(1)
 	//l.PushFront(2)
@@ -110,18 +115,18 @@ func main() {
 	//}
 	//fmt.Println()
 
-	u, err := user.Current()
-	if err != nil {
-		fmt.Printf("Current: %v (got %#v) \n", err, u)
-	}
-	if u.HomeDir == "" {
-		fmt.Printf("didn't get a HomeDir")
-	}
-	fmt.Println(u.HomeDir)
-	if u.Username == "" {
-		fmt.Printf("didn't get a username")
-	}
-	fmt.Println(u.Username)
+	//u, err := user.Current()
+	//if err != nil {
+	//	fmt.Printf("Current: %v (got %#v) \n", err, u)
+	//}
+	//if u.HomeDir == "" {
+	//	fmt.Printf("didn't get a HomeDir")
+	//}
+	//fmt.Println(u.HomeDir)
+	//if u.Username == "" {
+	//	fmt.Printf("didn't get a username")
+	//}
+	//fmt.Println(u.Username)
 	//pti()
 
 	//abc := []int{1, 2, 3, 4, 5, 6}
