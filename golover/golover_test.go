@@ -27,3 +27,17 @@ func TestDataService_Status(t *testing.T) {
 func TestClosure(t *testing.T) {
 	closure()
 }
+
+func TestDefer(t *testing.T) {
+	deferWithParam()
+}
+
+func TestRunTime(t *testing.T) {
+	calRuntime()
+}
+
+func TestLearnChannel(t *testing.T) {
+	//learnChannel()
+	//personChan()
+	quitChannel()
+}
