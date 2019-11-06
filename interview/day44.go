@@ -84,7 +84,7 @@ func work() (int, error) {
 func typeVar() {
 	var data info
 	var err error
-	// data.result,err := work() // 错误=>不能使用短变量申明结构体字段值
+	// data.result,err := work() // 错误=>不能使用短变量申明来设置结构体字段值 ==> Can't Use Short Variable Declarations to Set Field Values
 	data.result, err = work()
 	fmt.Printf("result:%+v;err=> %+v \n", data.result, err)
 }

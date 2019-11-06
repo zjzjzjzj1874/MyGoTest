@@ -7,7 +7,6 @@ import (
 	"strconv"
 	"sync"
 	"time"
-	"unicode/utf8"
 )
 
 // 下面两个函数是有区别的
@@ -94,9 +93,30 @@ func pti() {
 
 func main() {
 
+	var a uint8 = 0x82
+	var b uint8 = 0x02
+	fmt.Printf("%08b [A]\n", a)
+	fmt.Printf("%08b [B]\n", b)
+
+	fmt.Printf("%08b (NOT B)\n", ^b)
+	fmt.Printf("%08b ^ %08b = %08b [B XOR 0xff]\n", b, 0xff, b^0xff)
+
+	fmt.Printf("%08b ^ %08b = %08b [A XOR B]\n", a, b, a^b)
+	fmt.Printf("%08b & %08b = %08b [A AND B]\n", a, b, a&b)
+	fmt.Printf("%08b &^%08b = %08b [A 'AND NOT' B]\n", a, b, a&^b)
+	fmt.Printf("%08b&(^%08b)= %08b [A AND (NOT B)]\n", a, b, a&(^b))
+
+	// the time unix
+	timeUnix := time.Now().Unix()
+
+	fmt.Println("时间戳转化为日期格式 ==> ", time.Unix(timeUnix, 0).Format("2006-01-02"))
+
+	// ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
+	// ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥ 分 ♥♥ 隔 ♥♥ 符 ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
+	// ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
 	// ASCII 字符串长度使用 len() 函数。
 	// Unicode 字符串长度使用 utf8.RuneCountInString() 函数。
-	fmt.Println(utf8.RuneCountInString("我是一个石头,abc"))
+	//fmt.Println(utf8.RuneCountInString("我是一个石头,abc"))
 
 	//fmt.Println(time.Now().AddDate(0, 0, 1).Unix())
 	//l := list.New()
