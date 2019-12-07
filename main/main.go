@@ -6,6 +6,7 @@ import (
 	"reflect"
 	"strconv"
 	"sync"
+	"testing"
 	"time"
 )
 
@@ -91,24 +92,34 @@ func pti() {
 //	}
 //}
 
+func hello(num ...int) {
+	num[0] = 18
+}
+
+func Test13(t *testing.T) {
+	i := []int{5, 6, 7}
+	hello(i...)
+	fmt.Println(i[0])
+}
+
 func main() {
 
+	t := testing.T{}
+	Test13(&t)
+	/*// 位运算
 	var a uint8 = 0x82
 	var b uint8 = 0x02
 	fmt.Printf("%08b [A]\n", a)
 	fmt.Printf("%08b [B]\n", b)
-
 	fmt.Printf("%08b (NOT B)\n", ^b)
 	fmt.Printf("%08b ^ %08b = %08b [B XOR 0xff]\n", b, 0xff, b^0xff)
-
 	fmt.Printf("%08b ^ %08b = %08b [A XOR B]\n", a, b, a^b)
 	fmt.Printf("%08b & %08b = %08b [A AND B]\n", a, b, a&b)
 	fmt.Printf("%08b &^%08b = %08b [A 'AND NOT' B]\n", a, b, a&^b)
-	fmt.Printf("%08b&(^%08b)= %08b [A AND (NOT B)]\n", a, b, a&(^b))
+	fmt.Printf("%08b&(^%08b)= %08b [A AND (NOT B)]\n", a, b, a&(^b))*/
 
 	// the time unix
 	timeUnix := time.Now().Unix()
-
 	fmt.Println("时间戳转化为日期格式 ==> ", time.Unix(timeUnix, 0).Format("2006-01-02"))
 
 	// ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥

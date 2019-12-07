@@ -9,11 +9,13 @@ func LeftShift() {
 		b             // 1 << 1
 		c             // 1 << 2
 		d             // 1 << 3
+		e = 1 << 6
 	)
 	fmt.Println(a) // 1
 	fmt.Println(b) // 2
 	fmt.Println(c) // 4
 	fmt.Println(d) // 8
+	fmt.Println(e) // 64
 }
 
 func RightShift() {
