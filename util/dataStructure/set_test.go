@@ -2,6 +2,7 @@ package dataStructure
 
 import (
 	"fmt"
+	"math"
 	"testing"
 )
 
@@ -16,16 +17,25 @@ func newSet2() *Set {
 }
 
 func TestNewSet(t *testing.T) {
-	s := NewSet()
-	s.Add(1)
-	s.Add(2)
-	s.Add(3)
-	s.Add(4)
-	s.Add(4)
-	s.Add(5)
-	s.Add(7)
-	s.Add(9)
-	fmt.Println(s.SortList())
+	fmt.Println(math.Pow(2,3))
+
+	//s := NewSet()
+	//s.Add(4)
+	//s.Add(10)
+	//s.Add(3)
+	//s.Add(4)
+	//s.Add(4)
+	//s.Add(5)
+	//s.Add(7)
+	//s.Add(9)
+	//for i := range s.List(){
+	//	fmt.Println(i)
+	//}
+	//fmt.Println(s.SortList())
+	//a := 64
+	//fmt.Println(a&0)
+	//fmt.Println(a|0)
+
 	//
 	//	// remove测试
 	//	//s.Remove(5)
@@ -47,11 +57,11 @@ func TestNewSet(t *testing.T) {
 	//fmt.Println(s.Len())
 
 	// 集合的运算
-	s2 := newSet2()
-	fmt.Println(s2.SortList())
+	//s2 := newSet2()
+	//fmt.Println(s2.SortList())
 	//fmt.Println(s.Union(s2).SortList())	// 并集
 	//fmt.Println(s.InterSection(s2).SortList())	// 交集
-	fmt.Println(s.Equal(s2)) // 判断两个集合是否相等
+	//fmt.Println(s.Equal(s2)) // 判断两个集合是否相等
 }
 
 func TestSet_IsEmpty(t *testing.T) {

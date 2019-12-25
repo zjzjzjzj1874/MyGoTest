@@ -146,7 +146,7 @@ func (s *Set) IsSubSet(motherSet *Set) bool {
 // 计算差集 difference set :就是把set1中属于set2的元素去掉
 func (s *Set) DiffSet(s2 *Set) *Set {
 	s.RLock()
-	s.RUnlock()
+	defer s.RUnlock()
 	if s.Len() == zero || s2.Len() == zero{
 		return s
 	}

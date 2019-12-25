@@ -7,6 +7,8 @@ import (
 )
 
 func TestConvertByteSliceToIntSlice(t *testing.T) {
+
+	list.New()
 	//byteSlice := []byte{0x01,0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29,0x31,}
 	//in := ConvertByteSliceToIntSlice(byteSlice)
 	//fmt.Println(in)
