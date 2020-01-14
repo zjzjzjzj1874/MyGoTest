@@ -104,8 +104,24 @@ func Test13(t *testing.T) {
 
 func main() {
 
-	t := testing.T{}
-	Test13(&t)
+	// 数组操作
+	//a := []int{1,2,3}
+	//fmt.Println("a ==== ",a)
+	//a = a[3:]
+	//fmt.Println("a ==== ",a)
+
+	// 切片排序
+	//arr := []int{1,4,2,5,123,45,123}
+	//
+	//sort.Ints(arr)
+	//fmt.Println(arr)
+
+	// map的初始化
+	//var m map[uint8]int
+	//m := make(map[uint8]int)
+	//m[1] = 2
+	//fmt.Println("map==>",m)
+
 	/*// 位运算
 	var a uint8 = 0x82
 	var b uint8 = 0x02
@@ -119,8 +135,8 @@ func main() {
 	fmt.Printf("%08b&(^%08b)= %08b [A AND (NOT B)]\n", a, b, a&(^b))*/
 
 	// the time unix
-	timeUnix := time.Now().Unix()
-	fmt.Println("时间戳转化为日期格式 ==> ", time.Unix(timeUnix, 0).Format("2006-01-02"))
+	//timeUnix := time.Now().Unix()
+	//fmt.Println("时间戳转化为日期格式 ==> ", time.Unix(timeUnix, 0).Format("2006-01-02"))
 
 	// ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
 	// ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥ 分 ♥♥ 隔 ♥♥ 符 ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
@@ -147,6 +163,7 @@ func main() {
 	//fmt.Println()
 
 	//u, err := user.Current()
+	//fmt.Println(u,err)
 	//if err != nil {
 	//	fmt.Printf("Current: %v (got %#v) \n", err, u)
 	//}
