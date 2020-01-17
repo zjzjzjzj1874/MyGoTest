@@ -1,4 +1,5 @@
-// 归并排序  https://baike.baidu.com/item/归并排序/1639015?fr=aladdin
+// 归并排序 -- 归并排序的主要思想是分治法。 -- 递归调用合并(稳定的排序)
+// https://zhuanlan.zhihu.com/p/36075856
 // https://www.jianshu.com/p/33cffa1ce613
 package arithmetic
 
@@ -13,6 +14,7 @@ func mergeSort(r []int) []int {
 	return merge(left, right)
 }
 
+// 这里是合并两个有序的数组切片 ==>从小到大进行皇城PK
 func merge(left, right []int) (result []int) {
 	l, r := 0, 0
 	for l < len(left) && r < len(right) {
