@@ -5,7 +5,7 @@ import (
 	"reflect"
 )
 
-func main() {
+func day44() {
 
 	//lenAndCap()
 

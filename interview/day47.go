@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main() {
+func day47() {
 
 	//preBuild()
 

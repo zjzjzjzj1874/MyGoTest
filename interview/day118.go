@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main() {
+func day118() {
 	slice := make([]int, 5, 5)
 	slice[0] = 1
 	slice[1] = 2

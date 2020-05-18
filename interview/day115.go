@@ -8,7 +8,7 @@ func f(x int) int {
 	return 7
 }
 
-func main() {
+func day115() {
 	// switch 和case的用法
 
 	// A ==> false : " y = f(2) " used as value

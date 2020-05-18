@@ -7,7 +7,7 @@ import (
 
 // Shades of Go: Traps, Gotchas, and Common Mistakes for New Golang Devs
 
-func main() {
+func gogotchas() {
 	//nilMap()
 	waitGroupUse()
 }

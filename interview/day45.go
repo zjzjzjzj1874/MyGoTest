@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main() {
+func day45() {
 	//varRepeat()
 
 	//specialType()

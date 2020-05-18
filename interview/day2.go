@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main() {
+func day2() {
 	abc := []int{1, 2, 3, 4, 5, 6}
 	var x int = 3
 	var i int = 100
