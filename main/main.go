@@ -1,8 +1,13 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
-	"github.com/go-hashids-master"
+	"io"
+	"os"
+	"os/exec"
+
+	//"github.com/go-hashids-master"
 	"math/big"
 	"math/rand"
 	"net/http"
@@ -13,6 +18,143 @@ import (
 	"testing"
 	"time"
 )
+
+var ProId = 0
+
+func main() {
+	http.HandleFunc("/", handle)
+	http.HandleFunc("/hello", handleHello)
+	http.HandleFunc("/active", handleActiveAnother)
+	http.HandleFunc("/kill", handleKill)
+	http.ListenAndServe("127.0.0.1:8008", nil)
+
+	//in := bytes.NewBuffer(nil)
+	//cmd := exec.Command("sh")
+	//cmd.Stdin = in
+	//go func() {
+	//	in.WriteString("echo hello world > test.txt\n")
+	//	in.WriteString("exit\n")
+	//}()
+	//if err := cmd.Run(); err != nil {
+	//	fmt.Println(err)
+	//	return
+	//}
+
+	//cmd1 := exec.Command("ps -ef | grep redis")
+	//args := []string{"/Users/jiahua-zhoujian/Tools/golang/src/MyGoTest/mytest/mytest", "&"}
+	//cmd := exec.Command("/bin/bash", "-c", "nohup /Users/jiahua-zhoujian/Tools/golang/src/MyGoTest/mytest/mytest&") //不加第一个第二个参数会报错
+
+	//后台进程启动
+	//fmt.Println("hello world")
+	//for i := 0; i < 5; i++ {
+	//	fmt.Println(fmt.Sprintf("No.%d,hello %d", i, i))
+	//	if i == 2 {
+	//		fmt.Println("我提前结束了...")
+	//		return
+	//	}
+	//	time.Sleep(time.Second * 10)
+	//}
+	//fmt.Println("finally,i am done.")
+}
+
+func handleActiveAnother(w http.ResponseWriter, req *http.Request) {
+	cmd := exec.Cmd{
+		Path: "/Users/jiahua-zhoujian/Tools/golang/src/MyGoTest/main/httptest",
+	}
+
+	if err := cmd.Start(); err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println("Start child process with pid", cmd.Process.Pid)
+	// Wait releases any resources associated with the Cmd
+	go func() {
+		if err := cmd.Wait(); err != nil {
+			fmt.Printf("Child process %d exit with err: %v\n", cmd.Process.Pid, err)
+		}
+	}()
+
+	//args := []string{"a", "b", "c"}
+	//cmd := exec.Command("/Users/jiahua-zhoujian/Tools/golang/src/MyGoTest/main/httptest", args...) //不加第一个第二个参数会报错
+	////cmd := exec.Command("/bin/bash", "-c", "/Users/jiahua-zhoujian/Tools/golang/src/MyGoTest/main/mytest") //不加第一个第二个参数会报错
+	//fmt.Println("fork子进程ing ")
+	//
+	var HtmlBuffer bytes.Buffer
+	//
+	//con, err := cmd.Output()
+	//if err != nil {
+	//	fmt.Println("命令执行错误: ===== ", err)
+	//	HtmlBuffer.WriteString("fork子进程失败:" + err.Error())
+	//	io.WriteString(w, HtmlBuffer.String())
+	//	return
+	//} else {
+	//	fmt.Println(" 输出内容 ==== ", string(con))
+	//}
+	//ProId = cmd.ProcessState.Pid()
+
+	fmt.Println(" ExitCode === ", cmd.ProcessState.ExitCode())
+	fmt.Println(" Exited === ", cmd.ProcessState.Exited())
+	fmt.Println(" ards === ", cmd.Args)
+
+	pro, err := os.FindProcess(cmd.ProcessState.Pid())
+	if err != nil {
+		fmt.Println("pid == ", cmd.ProcessState.Pid(), " err === ", err)
+	}
+	ps, err := pro.Wait()
+	if err != nil {
+		fmt.Println("pid == ", cmd.ProcessState.Pid(), " err === ", err)
+	}
+	fmt.Println(" ps.ExitCode() ===  ", ps.ExitCode())
+
+	HtmlBuffer.WriteString("hello world")
+	HtmlBuffer.WriteString(req.Host)
+	io.WriteString(w, HtmlBuffer.String())
+}
+func handleKill(w http.ResponseWriter, req *http.Request) {
+	fmt.Println(" kill .....")
+	var HtmlBuffer bytes.Buffer
+
+	cmd := exec.Command("/bin/bash", "-c", fmt.Sprintf("kill %d", ProId))
+	//cmd := command.Cmd{}
+	//err := cmd.StdRun(fmt.Sprintf("ps aux|grep %s|grep -v \"grep\"|awk '{print $1}' | xargs kill -9", "httptest"))
+	err := cmd.Run()
+	if err != nil {
+		HtmlBuffer.WriteString("err === " + err.Error())
+	}
+	ProId = 0
+
+	HtmlBuffer.WriteString("kill")
+	HtmlBuffer.WriteString(req.Host)
+	io.WriteString(w, HtmlBuffer.String())
+}
+
+func handleHello(w http.ResponseWriter, req *http.Request) {
+	var HtmlBuffer bytes.Buffer
+
+	HtmlBuffer.WriteString("hello world")
+	HtmlBuffer.WriteString(req.Host)
+	io.WriteString(w, HtmlBuffer.String())
+}
+func handle(w http.ResponseWriter, req *http.Request) {
+	var HtmlBuffer bytes.Buffer
+
+	HtmlBuffer.WriteString("HTTP Method : ")
+	HtmlBuffer.WriteString(req.Method)
+
+	HtmlBuffer.WriteString("\nHTTP Proto : ")
+	HtmlBuffer.WriteString(req.Proto)
+
+	HtmlBuffer.WriteString("\nhttp Host : ")
+	HtmlBuffer.WriteString(req.Host)
+
+	HtmlBuffer.WriteString("\nRequest RemoteAddr : ")
+	HtmlBuffer.WriteString(req.RemoteAddr)
+
+	HtmlBuffer.WriteString("\nRequestURI : ")
+	HtmlBuffer.WriteString(req.RequestURI)
+
+	io.WriteString(w, HtmlBuffer.String())
+}
 
 // 下面两个函数是有区别的
 func errTest(arr [3]int) error {
@@ -79,7 +221,7 @@ func pti() {
 
 //var ARGS string
 //
-//func main() {
+//func shellTest() {
 //
 //	var uptime *bool = new(bool)
 //	flag.BoolVar(uptime,"u", false, "print system uptime")
@@ -167,15 +309,15 @@ type duoliaoResult struct {
 // 文档传送门 ==> https://godoc.org/github.com/speps/go-hashids
 // GitHub传送门 ==> https://github.com/speps/go-hashids
 func hashIds() {
-	hd := hashids.NewData()
-	hd.Salt = "this is my salt"
-	hd.MinLength = 30
-	h, _ := hashids.NewWithData(hd)
+	//hd := hashids.NewData()
+	//hd.Salt = "this is my salt"
+	//hd.MinLength = 30
+	//h, _ := hashids.NewWithData(hd)
+	////e, _ := h.Encode([]int{45, 434, 1313, 99})
 	//e, _ := h.Encode([]int{45, 434, 1313, 99})
-	e, _ := h.Encode([]int{45, 434, 1313, 99})
-	fmt.Println(e)
-	d, _ := h.DecodeWithError(e)
-	fmt.Println(d)
+	//fmt.Println(e)
+	//d, _ := h.DecodeWithError(e)
+	//fmt.Println(d)
 }
 
 const (
@@ -298,7 +440,7 @@ func setData(x int) {
 	arr[x] = 88
 }
 
-func main() {
+func main111() {
 
 	setData(20)
 	fmt.Println("走到这里 ")

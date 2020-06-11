@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func main() {
+func main222() {
 
 	//多线程处理
 	data := make(chan int)
@@ -92,13 +92,13 @@ func ThreadGoroutine(a time.Duration) {
 	fmt.Println("In ThreadGoroutine()")
 	go longWait()
 	go shortWait()
-	fmt.Println("About to sleep in main()")
+	fmt.Println("About to sleep in main12()")
 	// sleep works with a Duration in nanoseconds (ns) !
 	time.Sleep(a * 1e9)
-	/*我们让 main() 函数暂停 10 秒从而确定它会在另外两个协程之后结束。
-	如果不这样（如果我们让 main() 函数停止 4 秒），main() 会提前结束，
-	longWait() 则无法完成。如果我们不在 main() 中等待，协程会随着程序的结束而消亡。*/
-	fmt.Println("At the end of main()")
+	/*我们让 shellTest() 函数暂停 10 秒从而确定它会在另外两个协程之后结束。
+	如果不这样（如果我们让 shellTest() 函数停止 4 秒），shellTest() 会提前结束，
+	longWait() 则无法完成。如果我们不在 shellTest() 中等待，协程会随着程序的结束而消亡。*/
+	fmt.Println("At the end of main12()")
 }
 func longWait() {
 	fmt.Println("Beginning longWait()")

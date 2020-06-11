@@ -6,7 +6,7 @@ import (
 	"sync"
 )
 
-func main() {
+func main333() {
 	runtime.GOMAXPROCS(1)
 	wg := sync.WaitGroup{}
 	wg.Add(20)
