@@ -16,6 +16,11 @@ func LeftShift() {
 	fmt.Println(c) // 4
 	fmt.Println(d) // 8
 	fmt.Println(e) // 64
+
+	// 左移位运算可以看做乘法
+	fmt.Println(30 << 3)
+	fmt.Println(2 << 3)
+	fmt.Println(5 << 3)
 }
 
 func RightShift() {
@@ -29,4 +34,9 @@ func RightShift() {
 	fmt.Println(b) // 8
 	fmt.Println(c) // 4
 	fmt.Println(d) // 2
+
+	// 右移位运算可以看做除法
+	fmt.Println(32 >> 3)
+	fmt.Println(8 >> 3)
+	fmt.Println(5 >> 3)
 }
