@@ -6,9 +6,9 @@ import (
 	"io"
 	"os"
 	"os/exec"
-	"sync/atomic"
+	//"sync/atomic"
 
-	//"github.com/go-hashids-master"
+	"github.com/speps/go-hashids"
 	"math/big"
 	"math/rand"
 	"net/http"
@@ -53,16 +53,16 @@ func main() {
 }
 
 func atomicTest() {
-	atu := NewAtomicUser()
-	fmt.Println("age === ", atu.age.Load(), "; type :", reflect.TypeOf(atu.age.Load()))
-	fmt.Println("name === ", atu.name.Load(), "; type :", reflect.TypeOf(atu.name.Load()))
-
-	val := atu.age.Load().(uint64)
-	atomic.AddUint64(&val, 56)
-	fmt.Println("age === ", atu.age.Load(), "; type :", reflect.TypeOf(atu.age.Load()))
-
-	atomic.CompareAndSwapUint64(&val, atu.age.Load().(uint64), val)
-	fmt.Println("age === ", atu.age.Load(), "; type :", reflect.TypeOf(atu.age.Load()))
+	//atu := NewAtomicUser()
+	//fmt.Println("age === ", atu.age.Load(), "; type :", reflect.TypeOf(atu.age.Load()))
+	//fmt.Println("name === ", atu.name.Load(), "; type :", reflect.TypeOf(atu.name.Load()))
+	//
+	//val := atu.age.Load().(uint64)
+	//atomic.AddUint64(&val, 56)
+	//fmt.Println("age === ", atu.age.Load(), "; type :", reflect.TypeOf(atu.age.Load()))
+	//
+	//atomic.CompareAndSwapUint64(&val, atu.age.Load().(uint64), val)
+	//fmt.Println("age === ", atu.age.Load(), "; type :", reflect.TypeOf(atu.age.Load()))
 }
 
 // 下面两个函数是有区别的
@@ -218,15 +218,15 @@ type duoliaoResult struct {
 // 文档传送门 ==> https://godoc.org/github.com/speps/go-hashids
 // GitHub传送门 ==> https://github.com/speps/go-hashids
 func hashIds() {
-	//hd := hashids.NewData()
-	//hd.Salt = "this is my salt"
-	//hd.MinLength = 30
-	//h, _ := hashids.NewWithData(hd)
-	////e, _ := h.Encode([]int{45, 434, 1313, 99})
+	hd := hashids.NewData()
+	hd.Salt = "this is my salt"
+	hd.MinLength = 30
+	h, _ := hashids.NewWithData(hd)
 	//e, _ := h.Encode([]int{45, 434, 1313, 99})
-	//fmt.Println(e)
-	//d, _ := h.DecodeWithError(e)
-	//fmt.Println(d)
+	e, _ := h.Encode([]int{45, 434, 1313, 99})
+	fmt.Println(e)
+	d, _ := h.DecodeWithError(e)
+	fmt.Println(d)
 }
 
 const (
